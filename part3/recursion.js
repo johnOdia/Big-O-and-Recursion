@@ -21,3 +21,45 @@ const contains = (obj, value) => {
 	}
 	return false;
 }
+
+
+
+
+//CODE WAR CHALLENGES =>
+
+//PROBLEM:
+//Given a multi-dimensional integer array, return the total number of integers, stored inside this array. You should not rely on the number of dimensions to solve this kata. If n is the number of dimensions, then: 1 <= n < +Infinity.
+//SOLUTION:
+let array = []
+function realSize(arrays) {
+  arrays.forEach(val => {
+    if(Number.isInteger(val)) array.push(val)
+    if(typeof(val)  === 'object') realSize(val)
+  })
+  return array.length;
+}
+realSize([[[5], 3], 0, 2, [], [4, [5, 6]]]) // 7
+
+
+//PROBLEM:
+//Write a function that sums squares of numbers in list that may contain more lists
+//SOLUTION:
+let array = []
+function SumSquares(l){
+    l.forEach(val => typeof(val) === 'number' ? array.push(val*val) : SumSquares(val))
+    return array.reduce((a,b) => a+b)
+}
+SumSquares([1,2,[3,4,[5]]]) // 55
+
+
+//PROBLEM:
+//You need to design a recursive function called replicate which will receive arguments times and number.The function should return an array containing repetitions of the number argument. For instance, replicate(3, 5) should return [5,5,5]. If the times argument is negative, return an empty array.
+//SOLUTION:
+let array = []
+function replicate(times,num){
+  array.push(num)
+	times--
+	if(times === 0) return array
+	return replicate(times,num)
+}
+replicate(3,5) // [5,5,5]
