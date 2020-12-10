@@ -30,25 +30,36 @@ const contains = (obj, value) => {
 //PROBLEM:
 //Given a multi-dimensional integer array, return the total number of integers, stored inside this array. You should not rely on the number of dimensions to solve this kata. If n is the number of dimensions, then: 1 <= n < +Infinity.
 //SOLUTION:
-let array = []
-function realSize(arrays) {
-  arrays.forEach(val => {
-    if(Number.isInteger(val)) array.push(val)
-    if(typeof(val)  === 'object') realSize(val)
-  })
-  return array.length;
-}
+// let array = []
+// function realSize(arrays) {
+//   let count = 0
+//   arrays.forEach(val => {
+//     if(Number.isInteger(val)) array.push(val)
+//     if(typeof(val)  === 'object') realSize(val)
+//   })
+//   return array.length;
+// }
+
+const realSize = arr => arr.reduce((a, e) => a + (Array.isArray(e) ? realSize(e) : 1), 0);
+
 realSize([[[5], 3], 0, 2, [], [4, [5, 6]]]) // 7
 
 
 //PROBLEM:
 //Write a function that sums squares of numbers in list that may contain more lists
 //SOLUTION:
-let array = []
+// let array = []
+// function SumSquares(l){
+//     l.forEach(val => typeof(val) === 'number' ? array.push(val*val) : SumSquares(val))
+//     return array.reduce((a,b) => a+b)
+// }
+
 function SumSquares(l){
-    l.forEach(val => typeof(val) === 'number' ? array.push(val*val) : SumSquares(val))
-    return array.reduce((a,b) => a+b)
+  return l.reduce(function(res, item) {
+    return Array.isArray(item)? res + SumSquares(item) : res + Math.pow(item, 2);
+  }, 0);
 }
+
 SumSquares([1,2,[3,4,[5]]]) // 55
 
 
